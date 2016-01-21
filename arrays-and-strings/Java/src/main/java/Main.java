@@ -31,4 +31,7 @@ public class Main {
         return true;
     }
 
+    // [1.1] w/o addition data structures -
+    // for each char in string, compare with every other char for duplicates
+
 }
