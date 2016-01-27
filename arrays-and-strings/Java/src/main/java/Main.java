@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -8,9 +9,11 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String inputStr = input.next();
+        String inputStr1 = input.next();
+        String inputStr2 = input.next();
 
-        q1_1(inputStr);
+        // q1_1(inputStr);
+        q1_3(inputStr1, inputStr2);
     }
 
     // [1.1] Implement an algorithm to determine if a string has all unique characters. What
@@ -41,6 +44,42 @@ public class Main {
                 if (c == str.charAt(j)) {
                     return false;
                 }
+            }
+        }
+        return true;
+    }
+
+    // [1.3] Given two strings, write a method to decide
+    // if one is a permutation of the other.
+    public static void q1_3(String s1, String s2) {
+        System.out.printf("%s is a permutation of %s = %b", s1, s2, arePermutations(s1, s2));
+    }
+
+    // [1.3] helper
+    public static boolean arePermutations(String s1, String s2) {
+        // trivial case
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+
+        HashMap<Character, Integer> charCounts = new HashMap<Character, Integer>();
+
+        // hash character counts for first string
+        char[] s1Chars = s1.toLowerCase().toCharArray();
+        for (char c : s1Chars) {
+            int charCount = charCounts.containsKey(c)? charCounts.get(c) + 1 : 1;
+            charCounts.put(c, charCount);
+        }
+
+        // try to match string char-for-char counts
+        char[] s2Chars = s2.toLowerCase().toCharArray();
+        for (char c : s2Chars) {
+            if (!charCounts.containsKey(c)) {
+                return false;
+            } else if (charCounts.get(c) > 1) {
+                charCounts.put(c, charCounts.get(c) - 1);
+            } else {
+                charCounts.remove(c);
             }
         }
         return true;
