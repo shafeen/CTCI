@@ -10,11 +10,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String inputStr1 = input.next();
-        String inputStr2 = input.next();
+        //String inputStr2 = input.next();
 
         // q1_1(inputStr);
-        q1_3(inputStr1, inputStr2);
+        // q1_3(inputStr1, inputStr2);
+        q1_5(inputStr1);
     }
+
+    // -------------------------------------------
 
     // [1.1] Implement an algorithm to determine if a string has all unique characters. What
     //       if you cannot use additional data structures?
@@ -48,6 +51,8 @@ public class Main {
         }
         return true;
     }
+
+    // -------------------------------------------
 
     // [1.3] Given two strings, write a method to decide
     // if one is a permutation of the other.
@@ -85,24 +90,35 @@ public class Main {
         return true;
     }
 
+    // -------------------------------------------
+
     // [1.5] Implement a method to perform basic string compression using the counts
     // of repeated characters. For example, the string aabcccccaaa would become
     // a2blc5a3. If the "compressed" string would not become smaller than the original
     // string, your method should return the original string.
     public static void q1_5(String str) {
-        System.out.printf("\"%s\" compressed = %s", str, simpleCompress(str));
+        System.out.printf("\"%s\" compressed = \"%s\"", str, simpleCompress(str));
     }
 
     // [1.5] helper
     public static String simpleCompress(String str) {
-        String newString = ""; // TODO: replace with a mutable string
+        String newString = ""; // TODO: better to replace with a mutable string
 
         char[] strChars = str.toCharArray();
-        for (char c : strChars) {
-            // TODO: complete this
+        char current = strChars[0];
+        int currentCharCount = 0;
+        for (int i = 0; i < strChars.length; ) {
+            while (i < strChars.length && strChars[i] == current) {
+                currentCharCount++;
+                i++;
+            }
+            newString += current + Integer.toString(currentCharCount);
+            if (i < strChars.length) {
+                current = strChars[i];
+                currentCharCount = 0;
+            }
         }
-
-        return newString;
+        return (newString.length() < str.length()) ? newString : str;
     }
 
 }
