@@ -9,12 +9,13 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String inputStr1 = input.next();
+        //String inputStr1 = input.next();
         //String inputStr2 = input.next();
 
         // q1_1(inputStr);
         // q1_3(inputStr1, inputStr2);
-        q1_5(inputStr1);
+        // q1_5(inputStr1);
+        q1_6();
     }
 
     // -------------------------------------------
@@ -120,5 +121,26 @@ public class Main {
         }
         return (newString.length() < str.length()) ? newString : str;
     }
+
+    // -------------------------------------------
+
+    // [1.6] Given an image represented by an NxN matrix, where each pixel in the image is
+    // 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in
+    // place?
+    public static void q1_6() {
+        String[] image = {"ssssssss",
+                          "ssssssss",
+                          "ss......",
+                          "ssssssss",
+                          "ssssssss",
+                          "......ss",
+                          "ssssssss",
+                          "ssssssss"};
+        // todo: read it in sideways?
+        for (String line : image) {
+            System.out.println(line);
+        }
+    }
+
 
 }
