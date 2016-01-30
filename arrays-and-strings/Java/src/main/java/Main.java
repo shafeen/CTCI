@@ -128,17 +128,55 @@ public class Main {
     // 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in
     // place?
     public static void q1_6() {
-        String[] image = {"ssssssss",
-                          "ssssssss",
-                          "ss......",
-                          "ssssssss",
-                          "ssssssss",
-                          "......ss",
-                          "ssssssss",
-                          "ssssssss"};
-        // todo: read it in sideways?
-        for (String line : image) {
-            System.out.println(line);
+        // convert to 2d char array
+        char[][] image = {
+            {'s','s','s','s','s','s','s','s'},
+            {'s','s','s','s','s','s','s','s'},
+            {'s','s','.','.','.','.','.','.'},
+            {'s','s','s','s','s','s','s','s'},
+            {'s','s','s','s','s','s','s','s'},
+            {'.','.','.','.','.','.','s','s'},
+            {'s','s','s','s','s','s','s','s'},
+            {'s','s','s','s','s','s','s','s'}
+        };
+
+        System.out.println("Before rotation:");
+        System.out.println("----------------");
+        print2dCharArrayImage(image);
+        System.out.println("----------------");
+        System.out.println("");
+
+        // transpose (reflect y = x)
+        for(int y = 0; y < image.length; y++) {
+            for(int x = y + 1; x < image[y].length; x++) {
+                char cur = image[y][x];
+                image[y][x] = image[x][y];
+                image[x][y] = cur;
+            }
+        }
+        // reflect rows (or columns to rotate 90 degrees)
+        for(int y = 0; y <= image.length/2; y++) {
+            for(int x = 0; x < image[y].length; x++) {
+                char cur = image[image.length-1-y][x];
+                image[image.length-1-y][x] = image[y][x];
+                image[y][x] = cur;
+            }
+        }
+
+        System.out.println("After rotation (left):");
+        System.out.println("----------------");
+        print2dCharArrayImage(image);
+        System.out.println("----------------");
+        System.out.println("");
+    }
+
+    // [1.6] helper
+    public static void print2dCharArrayImage(char[][] image) {
+        for (int y = 0; y < image.length; y++) {
+            for (int x = 0; x < image[y].length; x++) {
+                System.out.print(image[y][x]);
+            }
+            System.out.println();
         }
     }
 
