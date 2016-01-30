@@ -9,13 +9,12 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        //String inputStr1 = input.next();
-        //String inputStr2 = input.next();
 
-        // q1_1(inputStr);
-        // q1_3(inputStr1, inputStr2);
-        // q1_5(inputStr1);
-        q1_6();
+        // q1_1(input.next());
+        // q1_3(input.next(), input.next());
+        // q1_5(input.next());
+        // q1_6();
+        q1_7();
     }
 
     // -------------------------------------------
@@ -73,7 +72,7 @@ public class Main {
         // hash character counts for first string
         char[] s1Chars = s1.toLowerCase().toCharArray();
         for (char c : s1Chars) {
-            int charCount = charCounts.containsKey(c)? charCounts.get(c) + 1 : 1;
+            int charCount = charCounts.containsKey(c) ? charCounts.get(c) + 1 : 1;
             charCounts.put(c, charCount);
         }
 
@@ -129,56 +128,106 @@ public class Main {
     // place?
     public static void q1_6() {
         // convert to 2d char array
-        char[][] image = {
-            {'s','s','s','s','s','s','s','s'},
-            {'s','s','s','s','s','s','s','s'},
-            {'s','s','.','.','.','.','.','.'},
-            {'s','s','s','s','s','s','s','s'},
-            {'s','s','s','s','s','s','s','s'},
-            {'.','.','.','.','.','.','s','s'},
-            {'s','s','s','s','s','s','s','s'},
-            {'s','s','s','s','s','s','s','s'}
+        Character[][] image = {
+                {'s', 's', 's', 's', 's', 's', 's', 's'},
+                {'s', 's', 's', 's', 's', 's', 's', 's'},
+                {'s', 's', '.', '.', '.', '.', '.', '.'},
+                {'s', 's', 's', 's', 's', 's', 's', 's'},
+                {'s', 's', 's', 's', 's', 's', 's', 's'},
+                {'.', '.', '.', '.', '.', '.', 's', 's'},
+                {'s', 's', 's', 's', 's', 's', 's', 's'},
+                {'s', 's', 's', 's', 's', 's', 's', 's'}
         };
 
         System.out.println("Before rotation:");
         System.out.println("----------------");
-        print2dCharArrayImage(image);
+        print2dArray(image);
         System.out.println("----------------");
         System.out.println("");
 
         // transpose (reflect y = x)
-        for(int y = 0; y < image.length; y++) {
-            for(int x = y + 1; x < image[y].length; x++) {
+        for (int y = 0; y < image.length; y++) {
+            for (int x = y + 1; x < image[y].length; x++) {
                 char cur = image[y][x];
                 image[y][x] = image[x][y];
                 image[x][y] = cur;
             }
         }
         // reflect rows (or columns to rotate 90 degrees)
-        for(int y = 0; y <= image.length/2; y++) {
-            for(int x = 0; x < image[y].length; x++) {
-                char cur = image[image.length-1-y][x];
-                image[image.length-1-y][x] = image[y][x];
+        for (int y = 0; y <= image.length / 2; y++) {
+            for (int x = 0; x < image[y].length; x++) {
+                char cur = image[image.length - 1 - y][x];
+                image[image.length - 1 - y][x] = image[y][x];
                 image[y][x] = cur;
             }
         }
 
         System.out.println("After rotation (left):");
         System.out.println("----------------");
-        print2dCharArrayImage(image);
+        print2dArray(image);
         System.out.println("----------------");
         System.out.println("");
     }
 
-    // [1.6] helper
-    public static void print2dCharArrayImage(char[][] image) {
-        for (int y = 0; y < image.length; y++) {
-            for (int x = 0; x < image[y].length; x++) {
-                System.out.print(image[y][x]);
+    // [1.6] & [1.7] helper
+    public static <T> void print2dArray(T[][] image) {
+        for (T[] line : image) {
+            for (T c : line) {
+                System.out.print(c);
             }
             System.out.println();
         }
     }
 
+    // -------------------------------------------
+
+    // [1.7] Write an algorithm such that if an element in an MxN
+    // matrix is 0, its entire row and column are set to 0.
+    public static void q1_7() {
+        Integer[][] matrix = {
+                {1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 0, 1, 1},
+                {1, 1, 1, 1, 1, 1}
+        };
+
+        print2dArray(zeroOutRowsCols(matrix, whichRowsCols(matrix)));
+    }
+
+    // [1.7] helper: returns which rows and col indexes to zero out,
+    // this is done by sweeping through every entry in the matrix
+    public static HashMap<String, HashSet<Integer>> whichRowsCols(Integer[][] matrix) {
+        HashMap<String, HashSet<Integer>> whichRowsColsMap = new HashMap<String, HashSet<Integer>>();
+        whichRowsColsMap.put("rows", new HashSet<Integer>());
+        whichRowsColsMap.put("cols", new HashSet<Integer>());
+        for (int r = 0; r < matrix.length; r++) {
+            for (int c = 0; c < matrix[r].length; c++) {
+                if (matrix[r][c] == 0) {
+                    whichRowsColsMap.get("rows").add(r);
+                    whichRowsColsMap.get("cols").add(c);
+                }
+            }
+        }
+        return whichRowsColsMap;
+    }
+
+    // [1.7] helper: zeros out specific rows and cols of matrix
+    public static Integer[][] zeroOutRowsCols(Integer[][] matrix, HashMap<String, HashSet<Integer>> whichRowsColsMap) {
+        HashSet<Integer> whichRows = whichRowsColsMap.get("rows");
+        for (int row : whichRows) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                matrix[row][col] = 0;
+            }
+        }
+        HashSet<Integer> whichCols = whichRowsColsMap.get("cols");
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col : whichCols) {
+                matrix[row][col] = 0;
+            }
+        }
+        return matrix;
+    }
+
+    // -------------------------------------------
 
 }
