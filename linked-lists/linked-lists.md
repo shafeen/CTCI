@@ -32,6 +32,6 @@ Linked Lists - Questions
       points to an earlier node, so as to make a loop in the linked list.
       2.7
       EXAMPLE
-      Input:A ->B->C->D->E-> C[thesameCasearlier] Output:C
+      Input:A->B->C->D->E->C (thesameCasearlier) Output:C
 
 [2.7] Implement a function to check if a linked list is a palindrome.
