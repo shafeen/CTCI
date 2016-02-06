@@ -6,7 +6,8 @@ import java.util.HashSet;
 public class Main {
 
     public static void main(String[] args) {
-        q2_1(getUnsortedLinkedList());
+        //q2_1(getUnsortedLinkedList());
+        q2_2(getUnsortedLinkedList(), 2);
     }
 
     public static LinkedList<Integer> getUnsortedLinkedList() {
@@ -53,8 +54,40 @@ public class Main {
 
     // [2.2] Implement an algorithm to find the kth
     // to last element of a singly linked list
-    public static void q2_2() {
-
+    // NOTE: I'm assuming 2nd to last means 2 away from the null node
+    public static void q2_2(LinkedList<Integer> list, int k) {
+        if (k < 1) {
+            throw new RuntimeException("k must be a nonzero positive integer!");
+        }
+        System.out.printf("The kth (k = %d) to last element of:\n%s\nis = %d\n",
+                k, list, getKthToLastElementInList(list, k));
     }
+
+    private static Integer getKthToLastElementInList(LinkedList<Integer> list, int k) {
+        int headToFollowDistance = k; // 2nd to last means follow behind by 2
+
+        // propagate head to the headToFollowDistance
+        LinkedList<Integer> headPtr = list;
+        LinkedList<Integer> followPtr = list;
+        while (headToFollowDistance != 0) {
+            if (headPtr == null) {
+                throw new RuntimeException("There aren't enough elements in this list!");
+            }
+            headPtr = headPtr.getNext();
+            headToFollowDistance--;
+        }
+
+        // now move both pointers until headPtr reaches the end of the list
+        // at that point, the followPtr will be pointing at the kth to last element
+        while (headPtr != null) {
+            headPtr = headPtr.getNext();
+            followPtr = followPtr.getNext();
+        }
+
+        return followPtr.getData();
+    }
+
+    // -----------------------------------------------
+
 
 }
