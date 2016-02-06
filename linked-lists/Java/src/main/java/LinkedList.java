@@ -15,18 +15,29 @@ public class LinkedList<T> {
         return data;
     }
 
-    public void setData(T data) {
+    public LinkedList<T> setData(T data) {
         this.data = data;
+        return this;
     }
 
     public LinkedList getNext() {
         return next;
     }
 
-    public void setNext(LinkedList next) {
+    public LinkedList<T> setNext(LinkedList next) {
         this.next = next;
+        return this;
     }
 
-
-
+    @Override
+    public String toString() {
+        LinkedList<T> head = this;
+        String s = "";
+        while (head.getNext() != null) {
+            s += head.getData() + " -> ";
+            head = head.getNext();
+        }
+        s += "null";
+        return s;
+    }
 }
