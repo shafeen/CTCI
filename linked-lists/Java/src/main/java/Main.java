@@ -6,20 +6,23 @@ import java.util.HashSet;
 public class Main {
 
     public static void main(String[] args) {
-        //q2_1(getUnsortedLinkedList());
-        q2_2(getUnsortedLinkedList(), 2);
+        //q2_1(getCustomLinkedList(new Integer[]{1, 3, 2, 2, 4, 4, 2, 3}));
+        q2_2(getCustomLinkedList(new Integer[]{1, 2, 3, 4}), 2);
     }
 
-    public static LinkedList<Integer> getUnsortedLinkedList() {
-        LinkedList<Integer> unsortedList = new LinkedList<Integer>(1);
-        unsortedList.setNext(new LinkedList<Integer>(3)).getNext()
-                .setNext(new LinkedList<Integer>(2)).getNext()
-                .setNext(new LinkedList<Integer>(2)).getNext()
-                .setNext(new LinkedList<Integer>(4)).getNext()
-                .setNext(new LinkedList<Integer>(4)).getNext()
-                .setNext(new LinkedList<Integer>(2)).getNext()
-                .setNext(new LinkedList<Integer>(3));
-        return unsortedList;
+    // common helper function for use by all questions
+    public static LinkedList<Integer> getCustomLinkedList(Integer[] srcArray) {
+        LinkedList<Integer> head = null; // to be set when list initialized
+        LinkedList<Integer> customListPtr = null;
+        for (Integer i : srcArray) {
+            if (customListPtr == null) {
+                customListPtr = new LinkedList<Integer>(i);
+                head = customListPtr;
+            } else {
+                customListPtr = customListPtr.setNext(new LinkedList<Integer>(i)).getNext();
+            }
+        }
+        return head;
     }
 
     // -----------------------------------------------
