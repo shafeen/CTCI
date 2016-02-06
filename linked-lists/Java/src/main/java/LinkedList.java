@@ -12,7 +12,7 @@ public class LinkedList<T> {
     }
 
     public T getData() {
-        return data;
+        return this.data;
     }
 
     public LinkedList<T> setData(T data) {
@@ -20,11 +20,11 @@ public class LinkedList<T> {
         return this;
     }
 
-    public LinkedList getNext() {
-        return next;
+    public LinkedList<T> getNext() {
+        return this.next;
     }
 
-    public LinkedList<T> setNext(LinkedList next) {
+    public LinkedList<T> setNext(LinkedList<T> next) {
         this.next = next;
         return this;
     }
@@ -33,7 +33,7 @@ public class LinkedList<T> {
     public String toString() {
         LinkedList<T> head = this;
         String s = "";
-        while (head.getNext() != null) {
+        while (head != null) {
             s += head.getData() + " -> ";
             head = head.getNext();
         }
