@@ -11,7 +11,7 @@ void reverse(char *str) {
 		str[i] = buffer[len-1-i];
 	}
 	str = buffer;
-	delete buffer;
+	delete[] buffer;
 }
 
 // 1.2 Implement a function void reverse(char* str) in C or C++ 
