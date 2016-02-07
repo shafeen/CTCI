@@ -40,4 +40,19 @@ public class LinkedList<T> {
         s += "null";
         return s;
     }
+
+    // return a custom LinkedList using the data from the srcArray
+    public static <T> LinkedList<T> getCustomList(T[] srcArray) {
+        LinkedList<T> head = null; // to be set when list initialized
+        LinkedList<T> customListPtr = null;
+        for (T i : srcArray) {
+            if (customListPtr == null) {
+                customListPtr = new LinkedList<T>(i);
+                head = customListPtr;
+            } else {
+                customListPtr = customListPtr.setNext(new LinkedList<T>(i)).getNext();
+            }
+        }
+        return head;
+    }
 }

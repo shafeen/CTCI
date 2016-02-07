@@ -6,25 +6,10 @@ import java.util.HashSet;
 public class Main {
 
     public static void main(String[] args) {
-        //q2_1(getCustomLinkedList(new Integer[]{1, 3, 2, 2, 4, 4, 2, 3}));
-        //q2_2(getCustomLinkedList(new Integer[]{1, 2, 3, 4}), 2);
-        //q2_3(getCustomLinkedList(new Integer[]{1,2,3,4,5}), 2);
-        q2_4(getCustomLinkedList(new Integer[]{5,4,3,2,1}), 3);
-    }
-
-    // common helper function for use by all questions
-    public static LinkedList<Integer> getCustomLinkedList(Integer[] srcArray) {
-        LinkedList<Integer> head = null; // to be set when list initialized
-        LinkedList<Integer> customListPtr = null;
-        for (Integer i : srcArray) {
-            if (customListPtr == null) {
-                customListPtr = new LinkedList<Integer>(i);
-                head = customListPtr;
-            } else {
-                customListPtr = customListPtr.setNext(new LinkedList<Integer>(i)).getNext();
-            }
-        }
-        return head;
+        //q2_1(LinkedList.getCustomList(new Integer[]{1, 3, 2, 2, 4, 4, 2, 3}));
+        //q2_2(LinkedList.getCustomList(new Integer[]{1, 2, 3, 4}), 2);
+        //q2_3(LinkedList.getCustomList(new Integer[]{1,2,3,4,5}), 2);
+        q2_4(LinkedList.getCustomList(new Integer[]{5,4,3,2,1}), 3);
     }
 
     // -----------------------------------------------
