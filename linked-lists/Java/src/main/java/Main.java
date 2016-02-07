@@ -8,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         //q2_1(getCustomLinkedList(new Integer[]{1, 3, 2, 2, 4, 4, 2, 3}));
         //q2_2(getCustomLinkedList(new Integer[]{1, 2, 3, 4}), 2);
-        q2_3(getCustomLinkedList(new Integer[]{1,2,3,4,5}), 2);
+        //q2_3(getCustomLinkedList(new Integer[]{1,2,3,4,5}), 2);
+        q2_4(getCustomLinkedList(new Integer[]{5,4,3,2,1}), 3);
     }
 
     // common helper function for use by all questions
@@ -125,6 +126,47 @@ public class Main {
             n--;
         }
         return head;
+    }
+
+    // -----------------------------------------------
+
+    // [2.4] Write code to partition a linked list around a value x, such that
+    // all nodes less than x come before all nodes greater than or equal to x.
+    // NOTE: my solution will return a new partitioned list
+    // TODO: clean up this solution (refactor the functions)
+    public static void q2_4(LinkedList<Integer> head, int x) {
+        System.out.printf("Partitioning list: [ %s ] \naround value = %d\n", head, x);
+        // create the 2 separate partitioned lists (< x and >= x)
+        LinkedList<Integer> curNode = head;
+        LinkedList<Integer> listLessThanX = null, listLessThanXHead = null;
+        LinkedList<Integer> listGrtOrEqToX = null, listGrtOrEqToXHead = null;
+        while (curNode != null) {
+            if (curNode.getData() < x) {
+                if (listLessThanX == null) {
+                    listLessThanXHead = listLessThanX = new LinkedList<Integer>(curNode.getData());
+                } else {
+                    listLessThanX.setNext(new LinkedList<Integer>(curNode.getData()));
+                    listLessThanX = listLessThanX.getNext();
+                }
+            } else {
+                if (listGrtOrEqToX == null) {
+                    listGrtOrEqToXHead = listGrtOrEqToX = new LinkedList<Integer>(curNode.getData());
+                } else {
+                    listGrtOrEqToX.setNext(new LinkedList<Integer>(curNode.getData()));
+                    listGrtOrEqToX = listGrtOrEqToX.getNext();
+                }
+            }
+            curNode = curNode.getNext();
+        }
+
+        // combine the 2 partitioned lists and return head of this list
+        while (listGrtOrEqToXHead != null) {
+            listLessThanX.setNext(new LinkedList<Integer>(listGrtOrEqToXHead.getData()));
+            listLessThanX = listLessThanX.getNext();
+            listGrtOrEqToXHead = listGrtOrEqToXHead.getNext();
+        }
+        LinkedList<Integer> partitionedList = listLessThanXHead;
+        System.out.printf("Newly partitioned list: [ %s ]\n", partitionedList);
     }
 
     // -----------------------------------------------
