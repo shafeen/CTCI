@@ -7,7 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
         //q2_1(getCustomLinkedList(new Integer[]{1, 3, 2, 2, 4, 4, 2, 3}));
-        q2_2(getCustomLinkedList(new Integer[]{1, 2, 3, 4}), 2);
+        //q2_2(getCustomLinkedList(new Integer[]{1, 2, 3, 4}), 2);
+        q2_3(getCustomLinkedList(new Integer[]{1,2,3,4,5}), 2);
     }
 
     // common helper function for use by all questions
@@ -66,6 +67,7 @@ public class Main {
                 k, list, getKthToLastElementInList(list, k));
     }
 
+    // [2.2] helper
     private static Integer getKthToLastElementInList(LinkedList<Integer> list, int k) {
         int headToFollowDistance = k; // 2nd to last means follow behind by 2
 
@@ -92,5 +94,38 @@ public class Main {
 
     // -----------------------------------------------
 
+    // [2.3] Implement an algorithm to delete a node in the middle
+    // of a singly linked list, given only access to that node.
+    // EXAMPLE:
+    // Input: the node c from the linked list a->b->c->d->e
+    // Result: nothing is returned, but the new linked list looks like a->b->d->e
+    public static void q2_3(LinkedList<Integer> originalList, int nodeNumToRemove) {
+        System.out.printf("Removing node %d (from head) of list: %s\n", nodeNumToRemove, originalList);
+        removeNodeFromList(originalList, getNthNodeFromHead(originalList, nodeNumToRemove));
+        System.out.printf("The resulting list is: %s\n", originalList);
+    }
 
+    // [2.3] helper
+    public static void removeNodeFromList(LinkedList<Integer> head, LinkedList<Integer> node) {
+        // convert node to next node and remove next node
+        LinkedList<Integer> nextNode = node.getNext();
+        if (nextNode == null) {
+            throw new RuntimeException("node must be in the middle of the LinkedList");
+        }
+        node.setData(nextNode.getData()).setNext(nextNode.getNext());
+    }
+
+    // [2.3] helper
+    public static LinkedList<Integer> getNthNodeFromHead(LinkedList<Integer> head, int n) {
+        if (n < 1) {
+            throw new RuntimeException("n must be a positive integer");
+        }
+        while (n != 0) {
+            head = head.getNext();
+            n--;
+        }
+        return head;
+    }
+
+    // -----------------------------------------------
 }
