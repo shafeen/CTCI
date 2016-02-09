@@ -9,7 +9,8 @@ public class Main {
         //q2_1(LinkedList.getCustomList(new Integer[]{1, 3, 2, 2, 4, 4, 2, 3}));
         //q2_2(LinkedList.getCustomList(new Integer[]{1, 2, 3, 4}), 2);
         //q2_3(LinkedList.getCustomList(new Integer[]{1,2,3,4,5}), 2);
-        q2_4(LinkedList.getCustomList(new Integer[]{5,4,3,2,1}), 3);
+        //q2_4(LinkedList.getCustomList(new Integer[]{5,4,3,2,1}), 3);
+        q2_5(LinkedList.getCustomList(new Integer[]{7,1,6}), LinkedList.getCustomList(new Integer[]{5,9,2}));
     }
 
     // -----------------------------------------------
@@ -155,4 +156,52 @@ public class Main {
     }
 
     // -----------------------------------------------
+
+    // [2.5] You have two numbers represented by a linked list, where each node contains a single digit.
+    // The digits are stored in reverse order, such that the Ts digit is at the head of the list.
+    // Write a function that adds the two numbers and returns the sum as a linked list.
+    // EXAMPLE
+    // Input:(7-> 1 -> 6) + (5 -> 9 -> 2).That is,617 + 295.
+    // Output: 2 -> 1 -> 9.That is, 912.
+    // FOLLOW UP
+    // Suppose the digits are stored in forward order. Repeat the above problem. EXAMPLE
+    // Input:(6 -> 1 -> 7) + (2 -> 9 -> 5).That is,617 + 295.
+    // Output: 9 -> 1 -> 2.That is, 912.
+    public static void q2_5(LinkedList<Integer> numAsList1, LinkedList<Integer> numAsList2) {
+        int sum = getNumFromList(numAsList1) + getNumFromList(numAsList2);
+        LinkedList<Integer> sumAsList = getNumAsList(sum);
+        System.out.printf("Num1 = %s = %d\nNum2 = %s = %d\nSum = %s = %d",
+                numAsList1, getNumFromList(numAsList1),
+                numAsList2, getNumFromList(numAsList2),
+                sumAsList, sum);
+    }
+
+    // [2.5] helper
+    private static int getNumFromList(LinkedList<Integer> numAsList1) {
+        int num = 0, multiplier = 1;
+        while (numAsList1 != null) {
+            num += numAsList1.getData() * multiplier;
+            multiplier *= 10;
+            numAsList1 = numAsList1.getNext();
+        }
+        return num;
+    }
+
+    // [2.5] helper
+    private static LinkedList<Integer> getNumAsList(int num) {
+        LinkedList<Integer> numAsList = null, numAsListHead = null;
+        while (num != 0) {
+            if (numAsList == null) {
+                numAsList = numAsListHead = new LinkedList<Integer>(num % 10);
+            } else {
+                numAsList.setNext(new LinkedList<Integer>(num % 10));
+                numAsList = numAsList.getNext();
+            }
+            num /= 10;
+        }
+        return numAsListHead;
+    }
+
+    // -----------------------------------------------
+
 }
