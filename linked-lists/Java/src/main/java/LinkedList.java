@@ -71,6 +71,7 @@ public class LinkedList<T> {
         int length = 0;
         while (head != null) {
             length++;
+            head = head.getNext();
         }
         return length;
     }
