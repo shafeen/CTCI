@@ -60,10 +60,10 @@ public class LinkedList<T> {
     public static <T> LinkedList<T> getCircularLinkedList(T[] srcArray) {
         LinkedList<T> listHead = getCustomList(srcArray);
         LinkedList<T> listPtr = listHead;
-        while (listPtr != null) {
-            listPtr= listPtr.getNext();
+        while (listPtr.getNext() != null) {
+            listPtr = listPtr.getNext();
         }
         listPtr.setNext(listHead);
-        return listPtr;
+        return listHead;
     }
 }
