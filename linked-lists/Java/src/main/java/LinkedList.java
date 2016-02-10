@@ -66,4 +66,12 @@ public class LinkedList<T> {
         listPtr.setNext(listHead);
         return listHead;
     }
+
+    public static <T> int getLength(LinkedList<T> head) {
+        int length = 0;
+        while (head != null) {
+            length++;
+        }
+        return length;
+    }
 }
