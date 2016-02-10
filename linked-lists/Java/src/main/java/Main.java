@@ -10,7 +10,9 @@ public class Main {
         //q2_2(LinkedList.getCustomList(new Integer[]{1, 2, 3, 4}), 2);
         //q2_3(LinkedList.getCustomList(new Integer[]{1,2,3,4,5}), 2);
         //q2_4(LinkedList.getCustomList(new Integer[]{5,4,3,2,1}), 3);
-        q2_5(LinkedList.getCustomList(new Integer[]{7,1,6}), LinkedList.getCustomList(new Integer[]{5,9,2}));
+        //q2_5(LinkedList.getCustomList(new Integer[]{7,1,6}), LinkedList.getCustomList(new Integer[]{5,9,2}));
+        q2_6(LinkedList.getCircularLinkedList(new Character[]{'A','B','C','D','E'}));
+
     }
 
     // -----------------------------------------------
@@ -203,5 +205,28 @@ public class Main {
     }
 
     // -----------------------------------------------
+
+    // [2.6] Given a circular linked list, implement an algorithm which returns the node
+    // at the beginning of the loop.
+    // DEFINITION
+    // Circular linked list: A (corrupt) linked list in which a node's next pointer
+    // points to an earlier node, so as to make a loop in the linked list.
+    // EXAMPLE
+    // Input:A->B->C->D->E->C (the same C as earlier) Output:C
+    public static void q2_6(LinkedList<Character> circularList) {
+        int maxNodeChecks = 100;
+        int nodeNum = 1;
+        HashSet<LinkedList<Character>> nodeSet = new HashSet<LinkedList<Character>>();
+        LinkedList<Character> listPtr = circularList;
+        System.out.println("Checking list..");
+        while (!nodeSet.contains(listPtr) && nodeNum < maxNodeChecks) {
+            nodeSet.add(listPtr);
+            listPtr = listPtr.getNext();
+            nodeNum++;
+        }
+        System.out.printf("Node %d containing '%s' is a repeat node\n", nodeNum, listPtr.getData());
+    }
+
+
 
 }
