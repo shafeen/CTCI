@@ -55,4 +55,15 @@ public class LinkedList<T> {
         }
         return head;
     }
+
+    // return circular linked list where the tail is linked to head
+    public static <T> LinkedList<T> getCircularLinkedList(T[] srcArray) {
+        LinkedList<T> listHead = getCustomList(srcArray);
+        LinkedList<T> listPtr = listHead;
+        while (listPtr != null) {
+            listPtr= listPtr.getNext();
+        }
+        listPtr.setNext(listHead);
+        return listPtr;
+    }
 }
