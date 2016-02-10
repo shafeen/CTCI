@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * CTCI - Linked Lists.
@@ -11,7 +13,8 @@ public class Main {
         //q2_3(LinkedList.getCustomList(new Integer[]{1,2,3,4,5}), 2);
         //q2_4(LinkedList.getCustomList(new Integer[]{5,4,3,2,1}), 3);
         //q2_5(LinkedList.getCustomList(new Integer[]{7,1,6}), LinkedList.getCustomList(new Integer[]{5,9,2}));
-        q2_6(LinkedList.getCircularLinkedList(new Character[]{'A','B','C','D','E'}));
+        //q2_6(LinkedList.getCircularLinkedList(new Character[]{'A','B','C','D','E'}));
+        q2_7(LinkedList.getCustomList(new Character[]{'H','A','N','N','A','H'}));
 
     }
 
@@ -227,6 +230,35 @@ public class Main {
         System.out.printf("Node %d containing '%s' is a repeat node\n", nodeNum, listPtr.getData());
     }
 
+    // -----------------------------------------------
 
+    // [2.7] Implement a function to check if a linked list is a palindrome.
+    public static void q2_7(LinkedList<Character> palindromeList) {
+        int length = LinkedList.getLength(palindromeList);
+        int midpoint = length/2;
+        List<Character> listHalfChars = new ArrayList<Character>();
+        LinkedList<Character> listPtr = palindromeList;
+        for (int i = 0; i < midpoint; i++) {
+            listHalfChars.add(listPtr.getData());
+            listPtr = listPtr.getNext();
+        }
 
+        boolean isPalindrome = true;
+        int secondHalfStartingPoint = midpoint;
+        if (length % 2 == 1) {
+            secondHalfStartingPoint++;
+            listPtr = listPtr.getNext();
+        }
+        for (int i = 0; (i + secondHalfStartingPoint < length); i++) {
+            if (listPtr.getData() != listHalfChars.get(midpoint-1-i)) {
+                isPalindrome = false;
+                break;
+            }
+            listPtr = listPtr.getNext();
+        }
+
+        System.out.printf("List [ %s ] is a palindrome = %b", palindromeList, isPalindrome);
+    }
+
+    // -----------------------------------------------
 }
