@@ -75,4 +75,14 @@ public class LinkedList<T> {
         }
         return length;
     }
+
+    // combine list1 and list2 by adding list2 at the end of list1
+    public static <T> LinkedList<T> combineLists(LinkedList<T> list1, LinkedList<T> list2) {
+        LinkedList<T> listHead = list1;
+        while (list1.getNext() != null) {
+            list1 = list1.getNext();
+        }
+        list1.setNext(list2);
+        return listHead;
+    }
 }
